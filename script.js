@@ -13,22 +13,26 @@
   
 // *******
   
-function Boo(){
+function Boo() {
     let count = 0;
-    return function () {
-        count++
-        if(count == 1){
-            console.log('start!');
-            return(count)
-        } else if(count <= 3 && count >= 2){
-            return (count);
-        } else {
-            return ('finish!')
+    return {
+        next: function () {
+            count++
+            if (count == 1) {
+                console.log('start!');
+                return {value: count, done: false}
+            } else if (count <= 3 && count >= 2) {
+                return {value: count, done: false};
+            } else {
+                console.log('finish')
+                return {value: undefined, done: true}
+            }
         }
-    }   
+    }
 }
-const next = Boo();
-// next() //1 
-// next() //2
-// next() //3
-// next() //'finish!'
+
+const booFunc = Boo();
+// booFunc.next() // 1 
+// booFunc.next() // 2 
+// booFunc.next() // 3 
+// booFunc.next() // finish
